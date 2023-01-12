@@ -31,16 +31,16 @@ let persons = [
 
 app.get('/info', (req, res) => {
     res.send('<p>Phonebook has info for ' + persons.length + ' people </p> ' + now.toString())
-})
+  })
   
 app.get('/api/persons', (req, res) => {
     res.json(persons)
-})
+  })
   
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
-})
+  })
 
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
@@ -50,4 +50,11 @@ app.get('/api/persons/:id', (request, response) => {
       } else {
         response.status(404).end()
       }
-})
+  })
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+  
+    response.status(204).end()
+  })
