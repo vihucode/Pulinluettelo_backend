@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 
-
+app.use(express.json())
 const now = new Date();
 
 let persons = [
@@ -30,6 +30,7 @@ let persons = [
 
 
 app.get('/info', (req, res) => {
+    const now = new Date();
     res.send('<p>Phonebook has info for ' + persons.length + ' people </p> ' + now.toString())
   })
   
@@ -57,4 +58,22 @@ app.delete('/api/persons/:id', (request, response) => {
     persons = persons.filter(person => person.id !== id)
   
     response.status(204).end()
+  })
+
+app.post('/api/persons', (request, response) => {
+    const person = request.body
+    if (persons.find(item => item.name === person.name)) {
+        return response.status(400).json({ 
+          error: 'name must be unique' 
+          })
+    }else if (persons.find(item => item.number === person.number)){
+        return response.status(400).json({ 
+            error: 'number must be unique' 
+          })
+    }else{
+        person.id = Math.floor(Math.random() * 30);
+        persons = persons.concat(person)
+        response.json(person)
+    }
+
   })
