@@ -1,9 +1,8 @@
-
 const express = require('express')
 const app = express()
 
 app.use(express.json())
-const now = new Date();
+var morgan = require('morgan')
 
 let persons = [
     {
@@ -36,11 +35,6 @@ app.get('/info', (req, res) => {
   
 app.get('/api/persons', (req, res) => {
     res.json(persons)
-  })
-  
-const PORT = 3001
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
   })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -77,3 +71,11 @@ app.post('/api/persons', (request, response) => {
     }
 
   })
+
+  
+
+const PORT = 3001
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+    app.use(morgan('tiny'));
+})
