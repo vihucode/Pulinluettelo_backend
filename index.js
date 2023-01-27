@@ -2,8 +2,6 @@ const express = require('express')
 const app = express()
 
 app.use(express.json())
-var morgan = require('morgan')
-
 const cors = require('cors')
 
 app.use(cors())
@@ -69,14 +67,14 @@ app.post('/api/persons', (request, response) => {
             error: 'number must be unique' 
           })
     }else{
-        person.id = Math.floor(Math.random() * 30);
+        person.id = Math.floor(Math.random() * 100);
         persons = persons.concat(person)
         response.json(person)
     }
 
   })
 
-const PORT = process.env.PORT || 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  const PORT = process.env.PORT || 3001
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
