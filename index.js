@@ -47,6 +47,8 @@ app.get('/api/persons/:id', (request, response) => {
       } else {
         response.status(404).end()
       }
+    
+    response.json(person)
   })
 
 app.delete('/api/persons/:id', (request, response) => {
